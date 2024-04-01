@@ -13,7 +13,7 @@ def main(csv_file, root_dir, save_dir):
 
     dataset = PlipDataProcess(
         root_dir=root_dir,
-        files=use,
+        files=files,
         df=df4,
         img_processor=img_processor,
         num_tiles_per_patient=2000,
