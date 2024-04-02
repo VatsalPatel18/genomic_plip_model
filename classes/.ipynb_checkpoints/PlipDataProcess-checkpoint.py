@@ -23,7 +23,7 @@ class PlipDataProcess(torch.utils.data.Dataset):
         image = Image.open(tile_path)
         return self.img_processor.preprocess(image)['pixel_values']
 
-    def save_individual_tile_data(self, tile_data, file_data, file_name, tile_name):
+    def save_individual_tile_data(self, tile_data, file_data, tile_name):
         save_path = os.path.join(self.save_dir, file_name, f"{tile_name}.pt")
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         torch.save({'tile_data': tile_data, 'file_data': file_data}, save_path)
