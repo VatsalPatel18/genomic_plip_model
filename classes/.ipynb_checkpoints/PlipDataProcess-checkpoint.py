@@ -23,24 +23,18 @@ class PlipDataProcess(torch.utils.data.Dataset):
         image = Image.open(tile_path)
         return self.img_processor.preprocess(image)['pixel_values']
 
-    def save_individual_tile_data(self, tile_data, file_data, tile_name):
+    def save_individual_tile_data(self, tile_data, file_data, file_name, tile_name):
         save_path = os.path.join(self.save_dir, file_name, f"{tile_name}.pt")
         os.makedirs(os.path.dirname(save_path), exist_ok=True)
         torch.save({'tile_data': tile_data, 'file_data': file_data}, save_path)
 
     def __getitem__(self, idx):
         file = self.files[idx]
-        tiles_path = os.path.join(self.root_dir, file)
+        tiles_path = os.path.join(self.root_dir, file,)
         tiles = [tile for tile in os.listdir(tiles_path) if tile != '.ipynb_checkpoints']
         selected_tiles = random.sample(tiles, min(self.num_tiles_per_patient, len(tiles)))
 
-        try:
-            file_data = torch.tensor(self.df.loc[f'{file}-01'].values, dtype=torch.float32)
-        except KeyError:
-            # If the file is not found in the dataframe, create a tensor of zeros
-            # Shape is inferred from the other rows in the dataframe
-            num_features = self.df.shape[1]
-            file_data = torch.zeros(num_features, dtype=torch.float32)
+        file_data = torch.tensor(self.df.loc[f'{file}-01'].values, dtype=torch.float32)
 
         with ThreadPoolExecutor(max_workers=self.max_workers) as executor:
             for tile_name in selected_tiles:
