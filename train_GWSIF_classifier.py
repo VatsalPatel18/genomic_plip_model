@@ -33,7 +33,7 @@ with open(os.path.join(args.data_dir, 'data_info.pkl'),'rb') as f:
     X_test = data_info['test']
     X_validate = data_info['validate']
 
-train_data = CustomDataset(data['train'])
+train_data = CustomDataset(data['train']['X'],data['train']['Y'])
 train_dataloader = DataLoader(train_data, batch_size=args.batch_size, shuffle=True)
 
 model = SimpleNN().to(device)

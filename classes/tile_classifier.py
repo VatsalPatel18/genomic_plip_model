@@ -16,9 +16,9 @@ class SimpleNN(nn.Module):
         return x
 
 class CustomDataset(Dataset):
-    def __init__(self):
-        self.X = torch.tensor(Dataset['X'], dtype=torch.float32)
-        self.Y = torch.tensor(Dataset['Y'], dtype=torch.float32)
+    def __init__(self,X,Y):
+        self.X = torch.tensor(X, dtype=torch.float32)
+        self.Y = torch.tensor(Y, dtype=torch.float32)
 
     def __len__(self):
         return len(self.X)
