@@ -23,7 +23,7 @@ def main():
     elif process_name == 'train_f_classifier':
         subprocess.run(['python', 'train_F_classifier.py'] + sys.argv[2:])
     elif process_name == 'extract_genomic_aligned_tile_features':
-        subprocess.run(['python', 'extract_genomic_aligned_tile_features.py'] + sys.argv[2:])
+        subprocess.run(['python', 'extract_genomic_aligned_tiles_features.py'] + sys.argv[2:])
     elif process_name == 'jupyter_lab':
         subprocess.run(['jupyter', 'lab', '--ip=0.0.0.0', '--no-browser', '--allow-root'])
     else:
