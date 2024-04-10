@@ -13,15 +13,20 @@ RUN apt-get update && \
 # Copy the local directory contents into the container at /app
 COPY ./ /app/
 
-# Install Python dependencies
+# Install Python depsendencies
 # Make sure you have a requirements.txt file in your directory with all the necessary Python packages
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Create a non-root user and switch to it for security reasons
 RUN adduser --disabled-password --gecos '' myuser
+
+# Change ownership of the /app directory to myuser
+RUN chown -R myuser:myuser /app
+
 USER myuser
 
 # No need to expose a port unless your application provides a web service
 EXPOSE 8888
 
+#ENTRYPOINT ["python", "main.py"]
 ENTRYPOINT ["python", "app.py"]
